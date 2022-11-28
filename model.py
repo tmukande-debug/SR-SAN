@@ -12,8 +12,9 @@ import torch
 from torch import nn
 from torch.nn import Module, Parameter
 import torch.nn.functional as F
-from torch.nn import TransformerEncoder
-from torch.nn import TransformerEncoderLayer
+#from torch.nn import TransformerEncoder
+#from torch.nn import TransformerEncoderLayer
+from x_transformers import TransformerWrapper, Decoder, Encoder
 
 class SelfAttentionNetwork(Module):
     def __init__(self, opt, n_node):
@@ -22,8 +23,10 @@ class SelfAttentionNetwork(Module):
         self.n_node = n_node
         self.batch_size = opt.batchSize
         self.embedding = nn.Embedding(self.n_node, self.hidden_size)
-        self.transformerEncoderLayer = TransformerEncoderLayer(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
-        self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
+        self.transformerEncoderLayer = Encoder(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
+        self.transformerEncoder = Encoder(self.transformerEncoderLayer, opt.layer)
+        #self.transformerEncoderLayer = TransformerEncoderLayer(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
+        #self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
         self.loss_function = nn.CrossEntropyLoss()
         self.optimizer = torch.optim.Adam(self.parameters(), lr=opt.lr, weight_decay=opt.l2)
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=opt.lr_dc_step, gamma=opt.lr_dc)
