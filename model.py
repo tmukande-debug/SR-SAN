@@ -14,7 +14,7 @@ from torch.nn import Module, Parameter
 import torch.nn.functional as F
 from torch.nn import TransformerEncoder
 from torch.nn import TransformerEncoderLayer
-from x_transformers import TransformerWrapper, Decoder, Encoder
+from block_recurrent_transformer_pytorch import BlockRecurrentTransformer
 
 class SelfAttentionNetwork(Module):
     def __init__(self, opt, n_node):
@@ -24,8 +24,17 @@ class SelfAttentionNetwork(Module):
         self.batch_size = opt.batchSize
         self.embedding = nn.Embedding(self.n_node, self.hidden_size)
         #self.transformerEncoderLayer = Encoder(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
-        self.transformerEncoderLayer = TransformerEncoderLayer(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
-        self.transformerEncoder = Encoder(self.transformerEncoderLayer, opt.layer)
+        #self.transformerEncoderLayer = TransformerEncoderLayer(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
+        #self.transformerEncoder = Encoder(self.transformerEncoderLayer, opt.layer)
+        self.transformerEncoder=BlockRecurrentTransformer(
+               num_tokens = 2000,
+               dim = self.hidden_size,
+               depth = 4,
+               dim_head = 64,
+               heads = opt.nhead,
+               xl_memories_layers = (3, 4),
+               recurrent_layers = (2, 3)
+              )
         #self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
         self.loss_function = nn.CrossEntropyLoss()
         self.optimizer = torch.optim.Adam(self.parameters(), lr=opt.lr, weight_decay=opt.l2)
