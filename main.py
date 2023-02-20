@@ -10,7 +10,7 @@ import argparse
 import pickle
 import time
 from utils import  Data, split_validation
-from model import *
+from model2 import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default='sample', help='dataset name: diginetica/yoochoose1_64')
