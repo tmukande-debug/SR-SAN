@@ -16,7 +16,7 @@ from torch.nn import TransformerEncoder
 from torch.nn import TransformerEncoderLayer
 #from block_recurrent_transformer_pytorch import BlockRecurrentTransformer
 #from mega_pytorch import Mega
-from performer_pytorch import SelfAttention
+from memory_efficient_attention_pytorch import Attention
 
 class SelfAttentionNetwork(Module):
     def __init__(self, opt, n_node):
