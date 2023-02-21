@@ -14,7 +14,8 @@ from torch.nn import Module, Parameter
 import torch.nn.functional as F
 from torch.nn import TransformerEncoder
 from torch.nn import TransformerEncoderLayer
-from block_recurrent_transformer_pytorch import BlockRecurrentTransformer
+#from block_recurrent_transformer_pytorch import BlockRecurrentTransformer
+from mega_pytorch import Mega
 
 class SelfAttentionNetwork(Module):
     def __init__(self, opt, n_node):
