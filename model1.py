@@ -15,7 +15,8 @@ import torch.nn.functional as F
 from torch.nn import TransformerEncoder
 from torch.nn import TransformerEncoderLayer
 #from block_recurrent_transformer_pytorch import BlockRecurrentTransformer
-from mega_pytorch import Mega
+#from mega_pytorch import Mega
+from performer_pytorch import SelfAttention
 
 class SelfAttentionNetwork(Module):
     def __init__(self, opt, n_node):
@@ -36,15 +37,13 @@ class SelfAttentionNetwork(Module):
                #xl_memories_layers = (3, 4),
                #recurrent_layers = (2, 3)
               #)
+    
+
         
-        self.transformerEncoder=Mega(
-              num_tokens = 256,            # number of tokens
-              dim = self.hidden_size,                   # model dimensions
-              depth = 6,                   # depth
-              ema_heads = 16,              # number of EMA heads
-              attn_dim_qk = 64,            # dimension of queries / keys in attention
-              attn_dim_value = 256,        # dimensino of values in attention
-              laplacian_attn_fn = False,    # whether to use softmax (false) or laplacian attention activation fn (true)
+       self.transformerEncoder=SelfAttention(
+              dim = self.hidden_size,
+              heads = opt.nhead,
+              causal = False,
              )
         #self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
         self.loss_function = nn.CrossEntropyLoss()
