@@ -28,7 +28,7 @@ class SelfAttentionNetwork(Module):
         #self.transformerEncoderLayer = Encoder(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
         #self.transformerEncoderLayer = TransformerEncoderLayer(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
         #self.transformerEncoder = Encoder(self.transformerEncoderLayer, opt.layer)
-        self.transformerEncoder== Attention(
+        self.transformerEncoder=Attention(
             dim = self.hidden_size,
             dim_head = 64,                # dimension per head
             heads = opt.nhead,                    # number of attention heads
