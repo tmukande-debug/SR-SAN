@@ -28,6 +28,11 @@ class SelfAttentionNetwork(Module):
         #self.transformerEncoderLayer = Encoder(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
         #self.transformerEncoderLayer = TransformerEncoderLayer(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
         #self.transformerEncoder = Encoder(self.transformerEncoderLayer, opt.layer)
+        self.transformerEncoder=SelfAttention(
+              dim = self.hidden_size,
+              heads = opt.nhead,
+              causal = False,
+             )
         #self.transformerEncoder=BlockRecurrentTransformer(
                #num_tokens = 2000,
                #dim = self.hidden_size,
@@ -37,14 +42,6 @@ class SelfAttentionNetwork(Module):
                #xl_memories_layers = (3, 4),
                #recurrent_layers = (2, 3)
               #)
-    
-
-        
-       self.transformerEncoder=SelfAttention(
-              dim = self.hidden_size,
-              heads = opt.nhead,
-              causal = False,
-             )
         #self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
         self.loss_function = nn.CrossEntropyLoss()
         self.optimizer = torch.optim.Adam(self.parameters(), lr=opt.lr, weight_decay=opt.l2)
