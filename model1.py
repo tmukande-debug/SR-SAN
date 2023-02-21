@@ -44,7 +44,7 @@ class SelfAttentionNetwork(Module):
               ema_heads = 16,              # number of EMA heads
               attn_dim_qk = 64,            # dimension of queries / keys in attention
               attn_dim_value = 256,        # dimensino of values in attention
-              laplacian_attn_fn = True,    # whether to use softmax (false) or laplacian attention activation fn (true)
+              laplacian_attn_fn = False,    # whether to use softmax (false) or laplacian attention activation fn (true)
              )
         #self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
         self.loss_function = nn.CrossEntropyLoss()
