@@ -41,7 +41,7 @@ class SelfAttentionNetwork(Module):
               num_tokens = 256,            # number of tokens
               dim = self.hidden_size,                   # model dimensions
               depth = 6,                   # depth
-              ema_heads = opt.nhead,              # number of EMA heads
+              ema_heads = 16,              # number of EMA heads
               attn_dim_qk = 64,            # dimension of queries / keys in attention
               attn_dim_value = 256,        # dimensino of values in attention
               laplacian_attn_fn = True,    # whether to use softmax (false) or laplacian attention activation fn (true)
