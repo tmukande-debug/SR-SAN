@@ -55,7 +55,7 @@ class SelfAttentionNetwork(Module):
     def forward(self, inputs, A):
         hidden = self.embedding(inputs)
         hidden = hidden.transpose(0,1).contiguous()
-        hidden = self.transformerEncoder(hidden)
+        #hidden = self.transformerEncoder(hidden)
         hidden = hidden.transpose(0,1).contiguous()
         return hidden
 
